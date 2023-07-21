@@ -1,0 +1,32 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GameManager : MonoBehaviour
+{
+    public static GameManager Instance { get; private set; }
+
+    public bool gameOver = false, winner = false, pause = false;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            DestroyImmediate(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
+
+    void Start()
+    {
+        
+    }
+
+    
+    void Update()
+    {
+        
+    }
+}
