@@ -12,12 +12,14 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 velocity, move;
     Camera camera;
+    PlayerState playerState;
     float horizontal, vertical, gravity = -9.81f, sphereRadius = 0.3f;
     bool isGrounded;
 
     void Start()
     {
         camera = Camera.main;
+        playerState = GetComponent<PlayerState>();
     }
 
     void Update()
@@ -42,6 +44,15 @@ public class PlayerMovement : MonoBehaviour
             playerRotation();
 
             cameraPosition.transform.SetParent(transform);
+
+            if (move == Vector3.zero)
+            {
+                playerState.MovePlayer(false);
+            }
+            else
+            {
+                playerState.MovePlayer(true);
+            }
 
             characterController.Move(move * speed * Time.deltaTime);
 
