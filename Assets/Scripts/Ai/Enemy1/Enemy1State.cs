@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy1State : MonoBehaviour
 {
     public bool isDead = false, isAtacking = false;
+    public int health = 3;
 
     void Start()
     {
@@ -13,6 +14,9 @@ public class Enemy1State : MonoBehaviour
 
     void Update()
     {
-        
+        if (health <= 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

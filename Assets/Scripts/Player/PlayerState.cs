@@ -21,4 +21,9 @@ public class PlayerState : MonoBehaviour
     {
         animator.SetBool("isRunning", isRunning);
     }
+
+    public void ShotPlayer(bool isShooting)
+    {
+        animator.SetBool("IsShooting", isShooting);
+    }
 }
