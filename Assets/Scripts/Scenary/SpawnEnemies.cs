@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpawnEnemies : MonoBehaviour
 {
     public GameObject enemyPrefab;
+    public GameObject enemySpitPrefab;
     public float timeSpawn = 5f;
 
     List<GameObject> enemies = new List<GameObject>();
@@ -54,12 +55,44 @@ public class SpawnEnemies : MonoBehaviour
             }
         }
 
-        if (!activatedEnemy && enemies.Count < 3)
+        if (!activatedEnemy && GameManager.Instance.enemiesSpawned < 25)
         {
             GameObject newEnemy = Instantiate(enemyPrefab, transform.position, transform.rotation);
             newEnemy.SetActive(true);
             enemies.Add(newEnemy);
             GameManager.Instance.enemiesSpawned++;
+
+            if (GameManager.Instance.enemiesSpawned <=5 )
+            {
+                Debug.Log("Primera horda");
+            }
+
+            if (GameManager.Instance.enemiesSpawned == 6)
+            {
+                Debug.Log("Segunda horda");
+            }   
+
+            if (GameManager.Instance.enemiesSpawned == 15)
+            {
+                Debug.Log("Tercera horda");
+            }
+
+            Debug.Log(GameManager.Instance.enemiesSpawned);
+        }
+
+        if (!activatedEnemy && GameManager.Instance.enemiesSpawned >= 25 && GameManager.Instance.enemiesSpawned < 28) 
+        {
+            GameObject newEnemy = Instantiate(enemySpitPrefab, transform.position, transform.rotation);
+            newEnemy.SetActive(true);
+            enemies.Add(newEnemy);
+            GameManager.Instance.enemiesSpawned++;
+            Debug.Log(GameManager.Instance.enemiesSpawned);
+        }
+
+        if(!activatedEnemy && GameManager.Instance.enemiesSpawned == 28)
+        {
+            Debug.Log("Boss");
+            Debug.Log(GameManager.Instance.enemiesSpawned);
         }
 
         countDown = timeSpawn;
