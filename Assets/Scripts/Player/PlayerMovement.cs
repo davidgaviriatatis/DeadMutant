@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager.Instance.gameOver && !GameManager.Instance.winner)
+        if (!GameManager.Instance.gameOver && !GameManager.Instance.winner && !playerState.isAttackingMele)
         {
             isGrounded = Physics.CheckSphere(groundCheck.position, sphereRadius, groundMask);
 
@@ -47,11 +47,11 @@ public class PlayerMovement : MonoBehaviour
 
             if (move == Vector3.zero)
             {
-                playerState.MovePlayer(false);
+                playerState.isRunning = false;
             }
             else
             {
-                playerState.MovePlayer(true);
+                playerState.isRunning = true;
             }
 
             characterController.Move(move * speed * Time.deltaTime);

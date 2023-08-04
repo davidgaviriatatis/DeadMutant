@@ -6,6 +6,7 @@ public class PlayerState : MonoBehaviour
 {
     public Animator animator;
     public float health = 10;
+    public bool isRunning = false, isShooting = false, isAttackingMele = false;
 
     void Start()
     {
@@ -14,16 +15,46 @@ public class PlayerState : MonoBehaviour
 
     void Update()
     {
-        
+        if (isRunning)
+        {
+            MovePlayer(true);
+        }
+        else
+        {
+            MovePlayer(false);
+        }
+
+        if (isShooting)
+        {
+            ShotPlayer(true);
+        }
+        else
+        {
+            ShotPlayer(false);
+        }
+
+        if (isAttackingMele)
+        {
+            MelePlayer(true);
+        }
+        else
+        {
+            MelePlayer(false);
+        }
     }
 
-    public void MovePlayer(bool isRunning)
+    private void MovePlayer(bool isRunning)
     {
         animator.SetBool("isRunning", isRunning);
     }
 
-    public void ShotPlayer(bool isShooting)
+    private void ShotPlayer(bool isShooting)
     {
         animator.SetBool("IsShooting", isShooting);
+    }
+
+    private void MelePlayer(bool isAttackingMele)
+    {
+        animator.SetBool("isAttackingMele", isAttackingMele);
     }
 }

@@ -27,11 +27,11 @@ public class Shot : MonoBehaviour
 
     private void ShootBullet()
     {
-        if (Input.GetButtonDown("Fire1") && !GameManager.Instance.gameOver && !GameManager.Instance.winner)
+        if (Input.GetButtonDown("Fire1") && !GameManager.Instance.gameOver && !GameManager.Instance.winner && !playerState.isAttackingMele)
         {
             if (Time.time > shotRateTime && GameManager.Instance.gunAmmo > 0)
             {
-                playerState.ShotPlayer(true);
+                playerState.isShooting = true;
 
                 StartCoroutine(NotShoot());
 
@@ -64,6 +64,6 @@ public class Shot : MonoBehaviour
     IEnumerator NotShoot()
     {
         yield return new WaitForSeconds(0.5f);
-        playerState.ShotPlayer(false);
+        playerState.isShooting = false;
     }
 }
