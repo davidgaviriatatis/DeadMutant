@@ -20,7 +20,14 @@ public class Shot : MonoBehaviour
 
     void Update()
     {
-        DrawLaser();
+        if (!GameManager.Instance.gameOver && !GameManager.Instance.winner && !playerState.isAttackingMele)
+        {
+            DrawLaser();
+        }
+        else
+        {
+            laser.enabled = false;
+        }
 
         ShootBullet();
     }
@@ -54,6 +61,11 @@ public class Shot : MonoBehaviour
 
     private void DrawLaser()
     {
+        if (!laser.enabled)
+        {
+            laser.enabled = true;
+        }
+
         laser.SetPosition(0, spawnPoint.position);
 
         Vector3 SecondPointLaser = spawnPoint.position + spawnPoint.transform.forward * 50;

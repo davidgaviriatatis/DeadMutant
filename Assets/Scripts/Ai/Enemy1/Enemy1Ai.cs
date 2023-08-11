@@ -5,8 +5,9 @@ using UnityEngine.AI;
 
 public class Enemy1Ai : MonoBehaviour
 {
+    public GameObject destination1;
+
     NavMeshAgent navMeshAgent;
-    GameObject destination1;
     Enemy1State enemyState;
     float distance = 100;
 
