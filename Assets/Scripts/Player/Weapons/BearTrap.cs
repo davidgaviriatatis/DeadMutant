@@ -8,6 +8,11 @@ public class BearTrap : MonoBehaviour
 
     bool enemieEnter = false;
 
+    private void Start()
+    {
+        player = GameObject.Find("Player");
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy") && !enemieEnter)
