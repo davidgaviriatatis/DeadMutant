@@ -260,7 +260,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 7534148745920644895, guid: 89f647b65c6db0343892e6aac646bd64,
     type: 3}
+<<<<<<< Updated upstream
   enemySpitPrefab: {fileID: 0}
+=======
+  enemySpitPrefab: {fileID: 4577587648483347482, guid: 6fd9e610905902243b8d5d96a4526bfb,
+    type: 3}
+>>>>>>> Stashed changes
   timeSpawn: 8
 --- !u!1001 &211005621
 PrefabInstance:
@@ -533,7 +538,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 7534148745920644895, guid: 89f647b65c6db0343892e6aac646bd64,
     type: 3}
+<<<<<<< Updated upstream
   enemySpitPrefab: {fileID: 0}
+=======
+  enemySpitPrefab: {fileID: 4577587648483347482, guid: 6fd9e610905902243b8d5d96a4526bfb,
+    type: 3}
+>>>>>>> Stashed changes
   timeSpawn: 3
 --- !u!1 &516922707
 GameObject:
@@ -876,7 +886,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 7534148745920644895, guid: 89f647b65c6db0343892e6aac646bd64,
     type: 3}
+<<<<<<< Updated upstream
   enemySpitPrefab: {fileID: 0}
+=======
+  enemySpitPrefab: {fileID: 4577587648483347482, guid: 6fd9e610905902243b8d5d96a4526bfb,
+    type: 3}
+>>>>>>> Stashed changes
   timeSpawn: 5
 --- !u!1 &1154078688
 GameObject:
@@ -1078,7 +1093,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 7534148745920644895, guid: 89f647b65c6db0343892e6aac646bd64,
     type: 3}
+<<<<<<< Updated upstream
   enemySpitPrefab: {fileID: 0}
+=======
+  enemySpitPrefab: {fileID: 4577587648483347482, guid: 6fd9e610905902243b8d5d96a4526bfb,
+    type: 3}
+>>>>>>> Stashed changes
   timeSpawn: 5
 --- !u!4 &1483326433
 Transform:
@@ -2089,7 +2109,7 @@ MonoBehaviour:
   pause: 0
   gunAmmo: 50
   health: 10
-  enemiesNumber: 20
+  enemiesNumber: 28
   enemiesSpawned: 0
   equippedItem: 1
   bearTrapAmount: 3
