@@ -3,41 +3,67 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy1Ai : MonoBehaviour
+public class Enemy1Ai : MonoBehaviour, IEnemyAction
 {
     public GameObject destination1;
+    public int attackDistance = 3, health = 3;
 
     NavMeshAgent navMeshAgent;
-    Enemy1State enemyState;
+    EnemyController enemyState;
+    EnemiesAnimation animator;
     float distance = 100;
 
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        enemyState = GetComponent<Enemy1State>();
+        enemyState = GetComponent<EnemyController>();
+        animator = GetComponent<EnemiesAnimation>();
         destination1 = GameObject.Find("Player");
     }
 
     void Update()
     {
-        if (enemyState.isDead || enemyState.isAtacking)
+        if (health <= 0)
         {
-            navMeshAgent.destination = transform.position;
-        }
-        else
-        {
-            navMeshAgent.destination = destination1.transform.position;
+            enemyState.currentState = EnemiesState.dying;
         }
 
         distance = Vector3.Distance(transform.position, destination1.transform.position);
 
-        if (distance <= 3 && !enemyState.isDead)
+        if (distance <= attackDistance && enemyState.currentState != EnemiesState.dying && enemyState.currentState != EnemiesState.stand && enemyState.currentState != EnemiesState.attacking)
         {
-            enemyState.isAtacking = true;
+            enemyState.currentState = EnemiesState.attacking;
         }
-        else
+        else if(enemyState.currentState != EnemiesState.stand && enemyState.currentState != EnemiesState.dying && enemyState.currentState != EnemiesState.attacking)
         {
-            enemyState.isAtacking = false;
+            canWalk();
         }
+    }
+
+    public void canWalk()
+    {
+        enemyState.currentState = EnemiesState.walking;
+    }
+
+    public void walk()
+    {
+        navMeshAgent.destination = destination1.transform.position;
+        animator.enemyAttack(false);
+    }
+
+    public void attack()
+    {
+        navMeshAgent.destination = transform.position;
+        animator.enemyAttack(true);
+    }
+
+    public void died()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void caught()
+    {
+        navMeshAgent.destination = transform.position;
     }
 }

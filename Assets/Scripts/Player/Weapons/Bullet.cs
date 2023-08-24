@@ -10,10 +10,10 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            if (!collision.gameObject.GetComponent<Enemy1State>().isDead)
+            if (collision.gameObject.GetComponent<EnemyController>().currentState != EnemiesState.dying)
             {
                 GameObject newBlood = Instantiate(bloodEffect, transform.position, transform.rotation);
-                collision.gameObject.GetComponent<Enemy1State>().health--;
+                collision.gameObject.GetComponent<Enemy1Ai>().health--;
                 Destroy(newBlood, 1);
             }
 

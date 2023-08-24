@@ -18,23 +18,23 @@ public class BearTrap : MonoBehaviour
         if (other.CompareTag("Enemy") && !enemieEnter)
         {
             enemieEnter = true;
-            Enemy1State enemyState;
+            EnemyController enemyController;
             Enemy1Ai enemyAi;
-            enemyState = other.gameObject.GetComponent<Enemy1State>();
             enemyAi = other.gameObject.GetComponent<Enemy1Ai>();
+            enemyController = other.gameObject.GetComponent<EnemyController>();
 
-            enemyState.health = enemyState.health - 2;
-            enemyAi.destination1 = other.gameObject;
-            StartCoroutine(Hold(other.gameObject, enemyAi));
+            enemyController.currentState = EnemiesState.stand;
+            enemyAi.health = enemyAi.health - 2;
+            StartCoroutine(Hold(other.gameObject, enemyController));
         }
     }
 
-    IEnumerator Hold(GameObject enemy, Enemy1Ai enemyAi)
+    IEnumerator Hold(GameObject enemy, EnemyController enemyController)
     {
         yield return new WaitForSeconds(2);
         if (enemy.activeInHierarchy)
         {
-            enemyAi.destination1 = player;
+            enemyController.currentState = EnemiesState.walking;
         }
         Destroy(gameObject);
     }

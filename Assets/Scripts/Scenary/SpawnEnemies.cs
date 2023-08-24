@@ -64,20 +64,20 @@ public class SpawnEnemies : MonoBehaviour
 
             if (GameManager.Instance.enemiesSpawned <=5 )
             {
-                Debug.Log("Primera horda");
+                //Debug.Log("Primera horda");
             }
 
             if (GameManager.Instance.enemiesSpawned == 6)
             {
-                Debug.Log("Segunda horda");
+                //Debug.Log("Segunda horda");
             }   
 
             if (GameManager.Instance.enemiesSpawned == 15)
             {
-                Debug.Log("Tercera horda");
+                //Debug.Log("Tercera horda");
             }
 
-            Debug.Log(GameManager.Instance.enemiesSpawned);
+            //Debug.Log(GameManager.Instance.enemiesSpawned);
         }
 
         if (!activatedEnemy && GameManager.Instance.enemiesSpawned >= 25 && GameManager.Instance.enemiesSpawned < 28) 
@@ -86,13 +86,13 @@ public class SpawnEnemies : MonoBehaviour
             newEnemy.SetActive(true);
             enemies.Add(newEnemy);
             GameManager.Instance.enemiesSpawned++;
-            Debug.Log(GameManager.Instance.enemiesSpawned);
+            //Debug.Log(GameManager.Instance.enemiesSpawned);
         }
 
         if(!activatedEnemy && GameManager.Instance.enemiesSpawned == 28)
         {
-            Debug.Log("Boss");
-            Debug.Log(GameManager.Instance.enemiesSpawned);
+            /*Debug.Log("Boss");
+            Debug.Log(GameManager.Instance.enemiesSpawned);*/
         }
 
         countDown = timeSpawn;

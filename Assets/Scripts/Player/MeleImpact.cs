@@ -10,9 +10,12 @@ public class MeleImpact : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            GameObject newBlood = Instantiate(bloodEffect, other.transform.position + other.transform.forward * 1, other.transform.rotation);
-            other.gameObject.GetComponent<Enemy1State>().health = other.gameObject.GetComponent<Enemy1State>().health - 2;
-            Destroy(newBlood, 1);
+            if (other.gameObject.GetComponent<EnemyController>().currentState != EnemiesState.dying)
+            {
+                GameObject newBlood = Instantiate(bloodEffect, other.transform.position + other.transform.forward * 1, other.transform.rotation);
+                other.gameObject.GetComponent<Enemy1Ai>().health = other.gameObject.GetComponent<Enemy1Ai>().health - 2;
+                Destroy(newBlood, 1);
+            }
         }
     }
 }
