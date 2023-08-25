@@ -5,9 +5,12 @@ using UnityEngine.AI;
 
 public class Enemy1Ai : MonoBehaviour, IEnemyAction
 {
-    public GameObject destination1;
-    public int attackDistance = 3, health = 3;
+    public int attackDistance = 2, health = 3;
+    public float rayDistance = 2f;
+    public Transform attackPoint;
+    public LayerMask mask;
 
+    GameObject destination1;
     NavMeshAgent navMeshAgent;
     EnemyController enemyState;
     EnemiesAnimation animator;
@@ -40,10 +43,32 @@ public class Enemy1Ai : MonoBehaviour, IEnemyAction
         }
     }
 
-    public void canWalk()
+    //----------------Métodos personalizados-------------
+
+    public void canWalk() => enemyState.currentState = EnemiesState.walking;
+
+    public void attackImpact()
     {
-        enemyState.currentState = EnemiesState.walking;
+        //Debug.DrawRay(attackPoint.position, attackPoint.forward * rayDistance, Color.red);
+
+        RaycastHit hit;
+        if (Physics.Raycast(attackPoint.position, attackPoint.forward, out hit, rayDistance, mask))
+        {
+            GameManager.Instance.health--;
+            Debug.Log(GameManager.Instance.health);
+        }
     }
+
+    IEnumerator deadRestart()
+    {
+        yield return new WaitForSeconds(3);
+        health = 3;
+        navMeshAgent.destination = destination1.transform.position;
+        animator.enemyDead(false);
+        gameObject.SetActive(false);
+    }
+
+    //---------------Métodos implementados interface---------------
 
     public void walk()
     {
@@ -59,7 +84,10 @@ public class Enemy1Ai : MonoBehaviour, IEnemyAction
 
     public void died()
     {
-        gameObject.SetActive(false);
+        animator.enemyAttack(false);
+        animator.enemyDead(true);
+        navMeshAgent.destination = transform.position;
+        StartCoroutine(deadRestart());
     }
 
     public void caught()
