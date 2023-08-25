@@ -24,7 +24,7 @@ public class BearTrap : MonoBehaviour
             enemyController = other.gameObject.GetComponent<EnemyController>();
 
             enemyController.currentState = EnemiesState.stand;
-            enemyAi.health = enemyAi.health - 2;
+            enemyController.health = enemyController.health - 2;
             StartCoroutine(Hold(other.gameObject, enemyController));
         }
     }

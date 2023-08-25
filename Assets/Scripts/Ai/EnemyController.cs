@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     public EnemiesState currentState = EnemiesState.walking;
+    public int health;
 
     IEnemyAction enemyAction;
 
@@ -15,6 +16,11 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
+        if (health <= 0)
+        {
+            currentState = EnemiesState.dying;
+        }
+
         switch (currentState)
         {
             case EnemiesState.walking:

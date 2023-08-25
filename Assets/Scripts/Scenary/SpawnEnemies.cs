@@ -54,7 +54,7 @@ public class SpawnEnemies : MonoBehaviour
             }
         }
 
-        if (!activatedEnemy && GameManager.Instance.enemiesSpawned < 25)
+        if (!activatedEnemy && enemies.Count < 5)
         {
             GameObject newEnemy = Instantiate(enemyPrefab, transform.position, transform.rotation);
             newEnemy.SetActive(true);

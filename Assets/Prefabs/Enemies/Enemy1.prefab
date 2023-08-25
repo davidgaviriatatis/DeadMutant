@@ -129,7 +129,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDistance: 2
-  health: 3
   rayDistance: 2
   attackPoint: {fileID: 3519626506689818371}
   mask:
@@ -148,6 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+  health: 3
 --- !u!114 &2846439361028932159
 MonoBehaviour:
   m_ObjectHideFlags: 0

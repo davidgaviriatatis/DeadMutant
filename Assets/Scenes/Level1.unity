@@ -260,7 +260,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 7534148745920644895, guid: 89f647b65c6db0343892e6aac646bd64,
     type: 3}
-  enemySpitPrefab: {fileID: 0}
   timeSpawn: 8
 --- !u!1001 &211005621
 PrefabInstance:
@@ -533,7 +532,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 7534148745920644895, guid: 89f647b65c6db0343892e6aac646bd64,
     type: 3}
-  enemySpitPrefab: {fileID: 0}
   timeSpawn: 3
 --- !u!1 &516922707
 GameObject:
@@ -876,7 +874,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 7534148745920644895, guid: 89f647b65c6db0343892e6aac646bd64,
     type: 3}
-  enemySpitPrefab: {fileID: 0}
   timeSpawn: 5
 --- !u!1 &1154078688
 GameObject:
@@ -1016,79 +1013,6 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: aca67fe4727387349ac3aa1842f9a350, type: 2}
   m_BuildHeightMesh: 0
---- !u!1001 &1399085557
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3267436676167926429, guid: 89f647b65c6db0343892e6aac646bd64,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3267436676167926429, guid: 89f647b65c6db0343892e6aac646bd64,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 10.490469
-      objectReference: {fileID: 0}
-    - target: {fileID: 3267436676167926429, guid: 89f647b65c6db0343892e6aac646bd64,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 3267436676167926429, guid: 89f647b65c6db0343892e6aac646bd64,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 7.342217
-      objectReference: {fileID: 0}
-    - target: {fileID: 3267436676167926429, guid: 89f647b65c6db0343892e6aac646bd64,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3267436676167926429, guid: 89f647b65c6db0343892e6aac646bd64,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3267436676167926429, guid: 89f647b65c6db0343892e6aac646bd64,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3267436676167926429, guid: 89f647b65c6db0343892e6aac646bd64,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3267436676167926429, guid: 89f647b65c6db0343892e6aac646bd64,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3267436676167926429, guid: 89f647b65c6db0343892e6aac646bd64,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3267436676167926429, guid: 89f647b65c6db0343892e6aac646bd64,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7534148745920644895, guid: 89f647b65c6db0343892e6aac646bd64,
-        type: 3}
-      propertyPath: m_Name
-      value: Enemy1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 89f647b65c6db0343892e6aac646bd64, type: 3}
 --- !u!1 &1451296377
 GameObject:
   m_ObjectHideFlags: 0
@@ -1151,7 +1075,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 7534148745920644895, guid: 89f647b65c6db0343892e6aac646bd64,
     type: 3}
-  enemySpitPrefab: {fileID: 0}
   timeSpawn: 5
 --- !u!4 &1483326433
 Transform:
@@ -2162,7 +2085,7 @@ MonoBehaviour:
   pause: 0
   gunAmmo: 50
   health: 10
-  enemiesNumber: 20
+  enemiesNumber: 30
   enemiesSpawned: 0
   equippedItem: 1
   bearTrapAmount: 3
