@@ -61,6 +61,7 @@ public class Enemy1Ai : MonoBehaviour, IEnemyAction
         navMeshAgent.destination = destination1.transform.position;
         animator.enemyDead(false);
         enemyState.currentState = EnemiesState.walking;
+        GameManager.Instance.killedEnemies++;
         gameObject.SetActive(false);
     }
 

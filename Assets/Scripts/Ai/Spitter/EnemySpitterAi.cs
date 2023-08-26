@@ -34,7 +34,6 @@ public class EnemySpitterAi : MonoBehaviour, IEnemyAction
         }
         else if (enemyState.currentState != EnemiesState.stand && enemyState.currentState != EnemiesState.dying && enemyState.currentState != EnemiesState.attacking)
         {
-            Debug.Log("Caminando");
             canWalk();
         }
     }
@@ -61,6 +60,7 @@ public class EnemySpitterAi : MonoBehaviour, IEnemyAction
         enemyState.health = 5;
         navMeshAgent.destination = destination1.transform.position;
         //animator.enemyDead(false);
+        GameManager.Instance.killedEnemies++;
         gameObject.SetActive(false);
     }
 

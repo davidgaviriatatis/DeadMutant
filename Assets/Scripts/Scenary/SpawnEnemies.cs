@@ -8,8 +8,9 @@ public class SpawnEnemies : MonoBehaviour
     public float timeSpawn = 5f;
 
     List<GameObject> enemies = new List<GameObject>();
+    Horde activeHorde;
     float countDown;
-    int enemiesNumber;
+    int enemiesNumber, positionSpawn = 0;
 
     void Start()
     {
@@ -19,9 +20,26 @@ public class SpawnEnemies : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.enemiesSpawned == 0)
+        {
+            activeHorde = GameManager.Instance.currentHordeClass;
+            Debug.Log("ANTES: " + activeHorde.spawnedEnemies[positionSpawn] + GameManager.Instance.enemiesSpawned);
+
+            for (int i = 0; i < activeHorde.enemies.Count; i++)
+            {
+                if (enemyPrefab.transform.name == activeHorde.enemies[i].transform.name)
+                {
+                    enemiesNumber = activeHorde.amount[i];
+                    positionSpawn = i;
+                    Debug.Log("DESPUES: " + activeHorde.spawnedEnemies[positionSpawn]);
+                    break;
+                }
+            }
+        }
+
         countDown -= Time.deltaTime;
 
-        if (countDown <= 0 && GameManager.Instance.enemiesSpawned < enemiesNumber)
+        if (countDown <= 0 && activeHorde.spawnedEnemies[positionSpawn] < enemiesNumber)
         {
             Spawn();
         }
@@ -38,6 +56,7 @@ public class SpawnEnemies : MonoBehaviour
             enemies.Add(newEnemy);
             activatedEnemy = true;
             GameManager.Instance.enemiesSpawned++;
+            activeHorde.spawnedEnemies[positionSpawn]++;
         }
         else
         {
@@ -49,17 +68,19 @@ public class SpawnEnemies : MonoBehaviour
                     enemyInList.transform.position = transform.position;
                     activatedEnemy = true;
                     GameManager.Instance.enemiesSpawned++;
+                    activeHorde.spawnedEnemies[positionSpawn]++;
                     break;
                 }
             }
         }
 
-        if (!activatedEnemy && enemies.Count < 5)
+        if (!activatedEnemy && enemies.Count < 15)
         {
             GameObject newEnemy = Instantiate(enemyPrefab, transform.position, transform.rotation);
             newEnemy.SetActive(true);
             enemies.Add(newEnemy);
             GameManager.Instance.enemiesSpawned++;
+            activeHorde.spawnedEnemies[positionSpawn]++;
         }
 
         countDown = timeSpawn;
