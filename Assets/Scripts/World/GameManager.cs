@@ -6,11 +6,14 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public List<GameObject> hordes = new List<GameObject>();
-    public GameObject currentHorde;
+    public GameObject currentHorde, spawnBossPoint, bossPrefab;
     public Horde currentHordeClass;
     public bool gameOver = false, winner = false, pause = false;
+    public float timeHordes = 30;
     public int gunAmmo = 10, health = 10, enemiesNumber = 0, enemiesSpawned = 0, equippedItem = 1, bearTrapAmount = 3, 
                 killedEnemies = 0, hordeNumber = 0;
+
+    float countDownHorde;
 
 
     private void Awake()
@@ -26,6 +29,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        countDownHorde = timeHordes;
         currentHorde = hordes[0];
         currentHordeClass = currentHorde.GetComponent<Horde>();
         enemiesNumber = currentHordeClass.totalEnemies;
@@ -36,14 +40,15 @@ public class GameManager : MonoBehaviour
     {
         HordeControl();
         Debug.Log("Horda: " + hordeNumber);
-        Debug.Log("Matados: " + killedEnemies);
     }
 
     private void HordeControl()
     {
         if (killedEnemies == currentHordeClass.totalEnemies)
         {
-            if (hordeNumber < hordes.Count-1)
+            countDownHorde -= Time.deltaTime;
+
+            if (hordeNumber < hordes.Count-1 && countDownHorde <= 0)
             {
                 hordeNumber++;
                 currentHorde = hordes[hordeNumber];
@@ -51,10 +56,15 @@ public class GameManager : MonoBehaviour
                 enemiesNumber = currentHordeClass.totalEnemies;
                 enemiesSpawned = 0;
                 killedEnemies = 0;
+                countDownHorde = timeHordes;
             }
-            else
+            else if(countDownHorde <= 0)
             {
                 Debug.Log("Chefe");
+                countDownHorde = timeHordes;
+                killedEnemies = 0;
+
+                Instantiate(bossPrefab, spawnBossPoint.transform.position, spawnBossPoint.transform.rotation);
             }
         }
     }

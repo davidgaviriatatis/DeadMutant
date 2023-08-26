@@ -10,7 +10,7 @@ public class SpawnEnemies : MonoBehaviour
     List<GameObject> enemies = new List<GameObject>();
     Horde activeHorde;
     float countDown;
-    int enemiesNumber, positionSpawn = 0;
+    int enemiesNumber, positionSpawn = 0, hordeNumber = -1;
 
     void Start()
     {
@@ -20,10 +20,10 @@ public class SpawnEnemies : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.enemiesSpawned == 0)
+        if (GameManager.Instance.hordeNumber != hordeNumber)
         {
             activeHorde = GameManager.Instance.currentHordeClass;
-            Debug.Log("ANTES: " + activeHorde.spawnedEnemies[positionSpawn] + GameManager.Instance.enemiesSpawned);
+            hordeNumber = GameManager.Instance.hordeNumber;
 
             for (int i = 0; i < activeHorde.enemies.Count; i++)
             {
@@ -31,7 +31,6 @@ public class SpawnEnemies : MonoBehaviour
                 {
                     enemiesNumber = activeHorde.amount[i];
                     positionSpawn = i;
-                    Debug.Log("DESPUES: " + activeHorde.spawnedEnemies[positionSpawn]);
                     break;
                 }
             }
