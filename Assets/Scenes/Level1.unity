@@ -2398,6 +2398,7 @@ MonoBehaviour:
   spawnBossPoint: {fileID: 147923324}
   bossPrefab: {fileID: 5826330082228066215, guid: 62278e069b784c14596c3fdae635fdbe,
     type: 3}
+  player: {fileID: 1926689806}
   currentHordeClass: {fileID: 0}
   gameOver: 0
   winner: 0

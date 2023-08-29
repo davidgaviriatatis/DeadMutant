@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public List<GameObject> hordes = new List<GameObject>();
-    public GameObject currentHorde, spawnBossPoint, bossPrefab;
+    public GameObject currentHorde, spawnBossPoint, bossPrefab, player;
     public Horde currentHordeClass;
     public bool gameOver = false, winner = false, pause = false;
     public float timeHordes = 30;
@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
 
     private void HordeControl()
     {
-        if (killedEnemies == currentHordeClass.totalEnemies)
+        if (killedEnemies >= currentHordeClass.totalEnemies)
         {
             countDownHorde -= Time.deltaTime;
 
