@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public Slider sliderHealth;
+    public TMP_Text ammoText, itemAmmoText;
+    public Image bearTrapImage, redCrossImage;
     public List<GameObject> hordes = new List<GameObject>();
     public GameObject currentHorde, spawnBossPoint, bossPrefab, player;
     public Horde currentHordeClass;
@@ -41,7 +44,7 @@ public class GameManager : MonoBehaviour
     
     void Update()
     {
-        sliderHealth.value = health;
+        assignUIValues();
 
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -53,6 +56,27 @@ public class GameManager : MonoBehaviour
     }
 
     //--------------------Métodos personalizados-----------------------
+
+    private void assignUIValues()
+    {
+        sliderHealth.value = health;
+        ammoText.text = gunAmmo.ToString();
+
+        switch (equippedItem)
+        {
+            case 1:
+                bearTrapImage.enabled = true;
+                redCrossImage.enabled = false;
+                itemAmmoText.text = bearTrapAmount.ToString();
+                break;
+
+            case 2:
+                bearTrapImage.enabled = false;
+                redCrossImage.enabled = true;
+                itemAmmoText.text = healthKitAmount.ToString();
+                break;
+        }
+    }
 
     private void changeEquipment()
     {
