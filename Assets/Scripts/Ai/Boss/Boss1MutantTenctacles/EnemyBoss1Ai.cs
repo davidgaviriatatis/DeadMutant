@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemySpitterAi : MonoBehaviour, IEnemyAction
+public class EnemyBoss1Ai : MonoBehaviour, IEnemyAction
 {
-    public int attackDistance = 6;
-    public float shotForce = 700f;
+    public int attackDistance = 2;
+    public float shotForce = 700f, rayDistance = 3f;
     public Transform attackPoint;
-    public GameObject acidBall;
+    public LayerMask mask;
 
     GameObject destination1;
     NavMeshAgent navMeshAgent;
     EnemyController enemyState;
     EnemiesAnimation animator;
-    float distance = 100;
+    float distance = 4;
 
     void Start()
     {
@@ -42,11 +42,14 @@ public class EnemySpitterAi : MonoBehaviour, IEnemyAction
 
     public void canWalk() => enemyState.currentState = EnemiesState.walking;
 
-    public void acidBallAttack()
+    public void meleAttack()
     {
-        transform.LookAt(GameManager.Instance.player.transform);
-
-        Instantiate(acidBall, attackPoint.position, attackPoint.rotation);
+        RaycastHit hit;
+        if (Physics.Raycast(attackPoint.position, attackPoint.forward, out hit, rayDistance, mask))
+        {
+            GameManager.Instance.health -= 2;
+            Debug.Log(GameManager.Instance.health);
+        }
     }
 
     IEnumerator deadRestart()
@@ -57,12 +60,6 @@ public class EnemySpitterAi : MonoBehaviour, IEnemyAction
         animator.enemyDead(false);
         GameManager.Instance.killedEnemies++;
         gameObject.SetActive(false);
-    }
-
-    IEnumerator restartWalk()
-    {
-        yield return new WaitForSeconds(2);
-        canWalk();
     }
 
     //---------------Métodos implementados interface---------------
@@ -76,7 +73,7 @@ public class EnemySpitterAi : MonoBehaviour, IEnemyAction
     public void attack()
     {
         navMeshAgent.destination = transform.position;
-        StartCoroutine(restartWalk());
+        transform.LookAt(GameManager.Instance.player.transform);
         animator.enemyAttack(true);
     }
 
