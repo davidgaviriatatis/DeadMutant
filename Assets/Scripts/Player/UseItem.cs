@@ -21,9 +21,32 @@ public class UseItem : MonoBehaviour
                     InstanBearTrap();
                     break;
 
+                case 2:
+                    HealthPlayer();
+                    break;
+
                 default:
                     break;
             }
+        }
+    }
+
+    //--------------------Métodos personalizados-----------------------
+
+    private void HealthPlayer()
+    {
+        if (GameManager.Instance.healthKitAmount > 0)
+        {
+            GameManager.Instance.health += 4;
+
+            if (GameManager.Instance.health > GameManager.Instance.maxHealth)
+            {
+                GameManager.Instance.health = GameManager.Instance.maxHealth;
+            }
+
+            GameManager.Instance.healthKitAmount--;
+
+            Debug.Log("vida: " + GameManager.Instance.health);
         }
     }
 

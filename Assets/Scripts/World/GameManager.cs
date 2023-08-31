@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    public Slider sliderHealth;
     public List<GameObject> hordes = new List<GameObject>();
     public GameObject currentHorde, spawnBossPoint, bossPrefab, player;
     public Horde currentHordeClass;
     public bool gameOver = false, winner = false, pause = false;
     public float timeHordes = 30;
     public int gunAmmo = 10, health = 10, enemiesNumber = 0, enemiesSpawned = 0, equippedItem = 1, bearTrapAmount = 3, 
-                killedEnemies = 0, hordeNumber = 0;
+                killedEnemies = 0, hordeNumber = 0, healthKitAmount = 2, maxItem = 2, maxHealth = 10;
 
     float countDownHorde;
 
@@ -33,13 +35,37 @@ public class GameManager : MonoBehaviour
         currentHorde = hordes[0];
         currentHordeClass = currentHorde.GetComponent<Horde>();
         enemiesNumber = currentHordeClass.totalEnemies;
+        health = maxHealth;
     }
 
     
     void Update()
     {
+        sliderHealth.value = health;
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            changeEquipment();
+        }
+
         HordeControl();
         Debug.Log("Horda: " + hordeNumber);
+    }
+
+    //--------------------Métodos personalizados-----------------------
+
+    private void changeEquipment()
+    {
+        if (equippedItem < maxItem)
+        {
+            equippedItem++;
+        }
+        else
+        {
+            equippedItem = 1;
+        }
+
+        Debug.Log(equippedItem);
     }
 
     private void HordeControl()
