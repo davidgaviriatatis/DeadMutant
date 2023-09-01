@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public Slider sliderHealth;
-    public TMP_Text ammoText, itemAmmoText;
+    public TMP_Text ammoText, itemAmmoText, hordeTimeText;
     public Image bearTrapImage, redCrossImage;
     public List<GameObject> hordes = new List<GameObject>();
     public GameObject currentHorde, spawnBossPoint, bossPrefab, player;
@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
         currentHordeClass = currentHorde.GetComponent<Horde>();
         enemiesNumber = currentHordeClass.totalEnemies;
         health = maxHealth;
+        hordeTimeText.enabled = false;
     }
 
     
@@ -61,6 +62,11 @@ public class GameManager : MonoBehaviour
     {
         sliderHealth.value = health;
         ammoText.text = gunAmmo.ToString();
+
+        if (hordeTimeText.isActiveAndEnabled)
+        {
+            hordeTimeText.text = countDownHorde.ToString("F0");
+        }
 
         switch (equippedItem)
         {
@@ -96,10 +102,16 @@ public class GameManager : MonoBehaviour
     {
         if (killedEnemies >= currentHordeClass.totalEnemies)
         {
+            if (!hordeTimeText.isActiveAndEnabled)
+            {
+                hordeTimeText.enabled = true;
+            }
+
             countDownHorde -= Time.deltaTime;
 
             if (hordeNumber < hordes.Count-1 && countDownHorde <= 0)
             {
+                hordeTimeText.enabled = false;
                 hordeNumber++;
                 currentHorde = hordes[hordeNumber];
                 currentHordeClass = currentHorde.GetComponent<Horde>();
@@ -111,6 +123,7 @@ public class GameManager : MonoBehaviour
             else if(countDownHorde <= 0)
             {
                 Debug.Log("Chefe");
+                hordeTimeText.enabled = false;
                 countDownHorde = timeHordes;
                 killedEnemies = 0;
 
