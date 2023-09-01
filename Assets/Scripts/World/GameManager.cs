@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GameManager : MonoBehaviour
@@ -11,13 +12,14 @@ public class GameManager : MonoBehaviour
     public TMP_Text ammoText, itemAmmoText, hordeTimeText;
     public Image bearTrapImage, redCrossImage;
     public List<GameObject> hordes = new List<GameObject>();
-    public GameObject currentHorde, spawnBossPoint, bossPrefab, player;
+    public GameObject currentHorde, spawnBossPoint, bossPrefab, player, gameOverPanel;
     public Horde currentHordeClass;
     public bool gameOver = false, winner = false, pause = false;
     public float timeHordes = 30;
     public int gunAmmo = 10, health = 10, enemiesNumber = 0, enemiesSpawned = 0, equippedItem = 1, bearTrapAmount = 3, 
                 killedEnemies = 0, hordeNumber = 0, healthKitAmount = 2, maxItem = 2, maxHealth = 10;
 
+    PlayerState playerState;
     float countDownHorde;
 
 
@@ -40,16 +42,23 @@ public class GameManager : MonoBehaviour
         enemiesNumber = currentHordeClass.totalEnemies;
         health = maxHealth;
         hordeTimeText.enabled = false;
+        gameOverPanel.SetActive(false);
+        playerState = player.GetComponent<PlayerState>();
     }
 
     
     void Update()
     {
-        assignUIValues();
+        AssignUIValues();
+
+        if (health <= 0)
+        {
+            GameOverFunction();
+        }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            changeEquipment();
+            ChangeEquipment();
         }
 
         HordeControl();
@@ -58,7 +67,14 @@ public class GameManager : MonoBehaviour
 
     //--------------------Métodos personalizados-----------------------
 
-    private void assignUIValues()
+    private void GameOverFunction()
+    {
+        playerState.isDying = true;
+        gameOver = true;
+        gameOverPanel.SetActive(true);
+    }
+
+    private void AssignUIValues()
     {
         sliderHealth.value = health;
         ammoText.text = gunAmmo.ToString();
@@ -84,7 +100,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void changeEquipment()
+    private void ChangeEquipment()
     {
         if (equippedItem < maxItem)
         {
@@ -130,5 +146,15 @@ public class GameManager : MonoBehaviour
                 Instantiate(bossPrefab, spawnBossPoint.transform.position, spawnBossPoint.transform.rotation);
             }
         }
+    }
+
+    public void RestartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }

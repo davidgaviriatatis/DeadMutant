@@ -13,7 +13,7 @@ public class UseItem : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && !GameManager.Instance.gameOver)
         {
             switch (GameManager.Instance.equippedItem)
             {
