@@ -14,13 +14,16 @@ public class Enemy1Ai : MonoBehaviour, IEnemyAction
     NavMeshAgent navMeshAgent;
     EnemyController enemyState;
     EnemiesAnimation animator;
+    EnemySounds enemySound;
     float distance = 100;
+    bool activeDead = false;
 
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         enemyState = GetComponent<EnemyController>();
         animator = GetComponent<EnemiesAnimation>();
+        enemySound = GetComponent<EnemySounds>();
         destination1 = GameObject.Find("Player");
     }
 
@@ -50,7 +53,7 @@ public class Enemy1Ai : MonoBehaviour, IEnemyAction
         if (Physics.Raycast(attackPoint.position, attackPoint.forward, out hit, rayDistance, mask))
         {
             GameManager.Instance.health--;
-            Debug.Log(GameManager.Instance.health);
+            hit.transform.GetComponent<PlayerSounds>().DamageSound();
         }
     }
 
@@ -58,6 +61,7 @@ public class Enemy1Ai : MonoBehaviour, IEnemyAction
     {
         yield return new WaitForSeconds(4);
         enemyState.health = 3;
+        activeDead = false;
         navMeshAgent.destination = destination1.transform.position;
         animator.enemyDead(false);
         enemyState.currentState = EnemiesState.walking;
@@ -75,12 +79,19 @@ public class Enemy1Ai : MonoBehaviour, IEnemyAction
 
     public void attack()
     {
+        //transform.LookAt(GameManager.Instance.player.transform.position);
         navMeshAgent.destination = transform.position;
         animator.enemyAttack(true);
     }
 
     public void died()
     {
+        if (!activeDead)
+        {
+            enemySound.DeadSound();
+            activeDead = true;
+        }
+
         animator.enemyAttack(false);
         animator.enemyDead(true);
         navMeshAgent.destination = transform.position;

@@ -8,6 +8,7 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    public AudioSource hordesSong, bossSong;
     public Slider sliderHealth;
     public TMP_Text ammoText, itemAmmoText, hordeTimeText;
     public Image bearTrapImage, redCrossImage;
@@ -20,8 +21,9 @@ public class GameManager : MonoBehaviour
                 killedEnemies = 0, hordeNumber = 0, healthKitAmount = 2, maxItem = 2, maxHealth = 10;
 
     PlayerState playerState;
+    PlayerSounds playerSounds;
     float countDownHorde;
-
+    bool activeGameOver = false;
 
     private void Awake()
     {
@@ -44,6 +46,8 @@ public class GameManager : MonoBehaviour
         hordeTimeText.enabled = false;
         gameOverPanel.SetActive(false);
         playerState = player.GetComponent<PlayerState>();
+        playerSounds = player.GetComponent<PlayerSounds>();
+        hordesSong.Play();
     }
 
     
@@ -51,7 +55,7 @@ public class GameManager : MonoBehaviour
     {
         AssignUIValues();
 
-        if (health <= 0)
+        if (health <= 0 && !activeGameOver)
         {
             GameOverFunction();
         }
@@ -69,9 +73,11 @@ public class GameManager : MonoBehaviour
 
     private void GameOverFunction()
     {
+        playerSounds.DeadSound();
         playerState.isDying = true;
         gameOver = true;
         gameOverPanel.SetActive(true);
+        activeGameOver = true;
     }
 
     private void AssignUIValues()
@@ -116,12 +122,24 @@ public class GameManager : MonoBehaviour
 
     private void HordeControl()
     {
+        if (hordesSong.volume < 1 && killedEnemies < currentHordeClass.totalEnemies && hordesSong.isPlaying)
+        {
+            hordesSong.volume += 0.005f;
+        }
+
+        if (bossSong.volume < 0.4f && bossSong.isPlaying)
+        {
+            bossSong.volume += 0.005f;
+        }
+
         if (killedEnemies >= currentHordeClass.totalEnemies)
         {
             if (!hordeTimeText.isActiveAndEnabled)
             {
                 hordeTimeText.enabled = true;
             }
+
+            hordesSong.volume -= 0.005f;
 
             countDownHorde -= Time.deltaTime;
 
@@ -138,6 +156,8 @@ public class GameManager : MonoBehaviour
             }
             else if(countDownHorde <= 0)
             {
+                hordesSong.Stop();
+                bossSong.Play();
                 Debug.Log("Chefe");
                 hordeTimeText.enabled = false;
                 countDownHorde = timeHordes;

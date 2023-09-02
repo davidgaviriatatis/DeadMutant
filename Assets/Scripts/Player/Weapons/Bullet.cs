@@ -13,6 +13,7 @@ public class Bullet : MonoBehaviour
             if (collision.gameObject.GetComponent<EnemyController>().currentState != EnemiesState.dying)
             {
                 GameObject newBlood = Instantiate(bloodEffect, transform.position, transform.rotation);
+                collision.gameObject.GetComponent<EnemySounds>().ImpactSound();
                 collision.gameObject.GetComponent<EnemyController>().health--;
                 Destroy(newBlood, 1);
             }

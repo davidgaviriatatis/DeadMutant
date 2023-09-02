@@ -26,8 +26,9 @@ public class AcidBall : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            other.gameObject.GetComponent<PlayerSounds>().AcidBallImpactSound();
+            other.gameObject.GetComponent<PlayerSounds>().DamageSound();
             GameManager.Instance.health -= 2;
-            Debug.Log(GameManager.Instance.health);
         }
     }
 }

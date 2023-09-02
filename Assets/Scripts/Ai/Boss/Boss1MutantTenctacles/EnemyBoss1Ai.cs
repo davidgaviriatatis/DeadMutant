@@ -48,7 +48,7 @@ public class EnemyBoss1Ai : MonoBehaviour, IEnemyAction
         if (Physics.Raycast(attackPoint.position, attackPoint.forward, out hit, rayDistance, mask))
         {
             GameManager.Instance.health -= 2;
-            Debug.Log(GameManager.Instance.health);
+            hit.transform.GetComponent<PlayerSounds>().DamageSound();
         }
     }
 

@@ -6,9 +6,11 @@ public class UseItem : MonoBehaviour
 {
     public GameObject bearTrap;
 
+    PlayerSounds playerSounds;
+
     void Start()
     {
-        
+        playerSounds = GetComponent<PlayerSounds>();
     }
 
     void Update()
@@ -37,6 +39,7 @@ public class UseItem : MonoBehaviour
     {
         if (GameManager.Instance.healthKitAmount > 0)
         {
+            playerSounds.UseHealthkit();
             GameManager.Instance.health += 4;
 
             if (GameManager.Instance.health > GameManager.Instance.maxHealth)
@@ -54,6 +57,7 @@ public class UseItem : MonoBehaviour
     {
         if (GameManager.Instance.bearTrapAmount > 0)
         {
+            playerSounds.UseBearTrap();
 
             Vector3 positionTrap = transform.position;
             positionTrap.y = 0.3f;

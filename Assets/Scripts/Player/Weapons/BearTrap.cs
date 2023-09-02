@@ -5,6 +5,7 @@ using UnityEngine;
 public class BearTrap : MonoBehaviour
 {
     public GameObject player;
+    public AudioSource audioTrap;
 
     bool enemieEnter = false;
 
@@ -18,6 +19,7 @@ public class BearTrap : MonoBehaviour
         if (other.CompareTag("Enemy") && !enemieEnter)
         {
             enemieEnter = true;
+            audioTrap.Play();
             EnemyController enemyController;
             Enemy1Ai enemyAi;
             enemyAi = other.gameObject.GetComponent<Enemy1Ai>();

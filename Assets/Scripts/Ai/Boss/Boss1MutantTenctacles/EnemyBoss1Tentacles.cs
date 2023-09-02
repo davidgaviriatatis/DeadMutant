@@ -79,7 +79,7 @@ public class EnemyBoss1Tentacles : MonoBehaviour, IEnemyAction
         if (Physics.CheckSphere(pointImpact.position, sphereRadius, playerMask))
         {
             GameManager.Instance.health -= 3;
-            Debug.Log(GameManager.Instance.health);
+            GameManager.Instance.player.GetComponent<PlayerSounds>().DamageSound();
         }
     }
 

@@ -9,11 +9,13 @@ public class Mele : MonoBehaviour
     public BoxCollider meleCollider;
 
     PlayerState playerState;
+    PlayerSounds playerSounds;
     float attackRateTime = 0;
 
     void Start()
     {
         playerState = GetComponent<PlayerState>();
+        playerSounds = GetComponent<PlayerSounds>();
         meleWeapon.SetActive(false);
     }
 
@@ -32,6 +34,7 @@ public class Mele : MonoBehaviour
             fireWeapon.SetActive(false);
             meleWeapon.SetActive(true);
             playerState.isAttackingMele = true;
+            playerSounds.MeleAttackSound();
             StartCoroutine(NotMele());
             attackRateTime = Time.time + attackRate;
         }

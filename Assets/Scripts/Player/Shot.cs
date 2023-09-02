@@ -6,16 +6,17 @@ public class Shot : MonoBehaviour
 {
     public Transform spawnPoint;
     public GameObject bullet;
-    public AudioSource audioSource;
     public LineRenderer laser;
     public float shotForce = 1000f, shotRate = 0.5f;
 
     PlayerState playerState;
+    PlayerSounds playerSounds;
     float shotRateTime = 0;
 
     private void Start()
     {
         playerState = GetComponent<PlayerState>();
+        playerSounds = GetComponent<PlayerSounds>();
     }
 
     void Update()
@@ -42,7 +43,7 @@ public class Shot : MonoBehaviour
 
                 StartCoroutine(NotShoot());
 
-                audioSource.Play();
+                playerSounds.ShotPistolSound();
 
                 GameObject newBullet;
 
