@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text ammoText, itemAmmoText, hordeTimeText;
     public Image bearTrapImage, redCrossImage;
     public List<GameObject> hordes = new List<GameObject>();
-    public GameObject currentHorde, spawnBossPoint, bossPrefab, player, gameOverPanel;
+    public GameObject currentHorde, spawnBossPoint, bossPrefab, player, gameOverPanel, winnerPanel;
     public Horde currentHordeClass;
     public bool gameOver = false, winner = false, pause = false;
     public float timeHordes = 30;
@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
         health = maxHealth;
         hordeTimeText.enabled = false;
         gameOverPanel.SetActive(false);
+        winnerPanel.SetActive(false);
         playerState = player.GetComponent<PlayerState>();
         playerSounds = player.GetComponent<PlayerSounds>();
         hordesSong.Play();
@@ -55,9 +56,14 @@ public class GameManager : MonoBehaviour
     {
         AssignUIValues();
 
-        if (health <= 0 && !activeGameOver)
+        if (health <= 0 && !activeGameOver && !winner)
         {
             GameOverFunction();
+        }
+
+        if (winner && !gameOver)
+        {
+            winnerPanel.SetActive(true);
         }
 
         if (Input.GetKeyDown(KeyCode.R))

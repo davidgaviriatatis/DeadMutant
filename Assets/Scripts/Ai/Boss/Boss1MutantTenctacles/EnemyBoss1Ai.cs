@@ -55,10 +55,10 @@ public class EnemyBoss1Ai : MonoBehaviour, IEnemyAction
     IEnumerator deadRestart()
     {
         yield return new WaitForSeconds(3);
-        enemyState.health = 5;
         navMeshAgent.destination = destination1.transform.position;
         animator.enemyDead(false);
         GameManager.Instance.killedEnemies++;
+        GameManager.Instance.winner = true;
         gameObject.SetActive(false);
     }
 

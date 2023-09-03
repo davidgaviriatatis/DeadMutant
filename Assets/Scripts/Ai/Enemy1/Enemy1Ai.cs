@@ -79,7 +79,7 @@ public class Enemy1Ai : MonoBehaviour, IEnemyAction
 
     public void attack()
     {
-        //transform.LookAt(GameManager.Instance.player.transform.position);
+        transform.LookAt(GameManager.Instance.player.transform.position);
         navMeshAgent.destination = transform.position;
         animator.enemyAttack(true);
     }
