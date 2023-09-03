@@ -232,7 +232,7 @@ Transform:
   - {fileID: 460264}
   - {fileID: 408346}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &9514650
 Animator:
@@ -267,6 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 375ef8824b81ea54bb43cffdcda2cbc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundBox: {fileID: 8300000, guid: c554c5249f6d98b42ad0521a81243d48, type: 3}
 --- !u!65 &2497052401640279333
 BoxCollider:
   m_ObjectHideFlags: 0
